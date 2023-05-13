@@ -3,7 +3,7 @@ import sys
 import shutil
 
 from annotate_images import *
-from annotate_videos import *
+from annotate_video import *
 
 
 def main():
@@ -35,6 +35,8 @@ def main():
     testset = os.listdir(test_root)
     testset.remove('.DS_Store')
 
+    # Command
+    # python3 src/annotations_test.py -i ../test/image_test_set ../test/image_res_set
     if flag == '-i':
         for imagename in testset:
             print('Annotating', imagename)
@@ -43,6 +45,7 @@ def main():
 
             cv.imwrite(os.path.join(res_root, imagename), img)
 
+    # python3 src/annotations_test.py -v ../test/video_test_set ../test/video_res_set
     elif flag == '-v':
         for videoname in testset:
             print('Annotating', videoname)
@@ -55,9 +58,6 @@ def main():
         print("ERROR: Invalid flag.\n")
         print("Flags: '-i' for images, '-v' for videos")
         exit()
-
-    # annotate_still_image(image_path)
-    # annotate_webcam()
 
 
 if __name__ == '__main__':
