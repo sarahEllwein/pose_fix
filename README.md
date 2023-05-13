@@ -15,8 +15,10 @@ Here's how it works:
 ### Installation
 
 1. Clone this repository on your local machine
-2. Open this repository on your IDE and enter this command:\
-`pip install -r requirements.txt`
+2. Open this repository on your IDE and enter these command:\
+`virtualenv fix_your_gains`\
+`pip install -r requirements.txt`\
 3. After all necessary libraries are installed, activate the virtual environment:\
 `source fix_your_gains/bin/activate`
+    * To deactive the virtual environment, enter `deactivate`
 4. Start coding!
