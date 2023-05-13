@@ -1,9 +1,4 @@
-import os
-import shutil
-import json
-
 import cv2 as cv
-import numpy as np
 import mediapipe as mp
 
 mp_drawing = mp.solutions.drawing_utils
@@ -31,34 +26,3 @@ def annotate_still_image(image_path):
             landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
 
     return annotated_image
-
-
-def main():
-    test_root = os.path.join(os.getcwd(), 'testset')
-
-    # Create resset directory
-    res_root = os.path.join(os.getcwd(), 'resset')
-
-    # Remove directory if exists
-    if os.path.exists(res_root):
-        shutil.rmtree(res_root)
-
-    os.mkdir(res_root)
-    print("Directory '%s' created" % res_root)
-
-    testset = os.listdir(test_root)
-    testset.remove('.DS_Store')
-
-    for imagename in testset:
-        print('Annotating', imagename)
-        image_path = os.path.join(test_root, imagename)
-        img = annotate_still_image(image_path)
-
-        cv.imwrite(os.path.join(res_root, imagename), img)
-
-    # annotate_still_image(image_path)
-    # annotate_webcam()
-
-
-if __name__ == '__main__':
-    main()
