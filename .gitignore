@@ -1,3 +1,5 @@
 /config.json
 #idea folder
 .idea/
+/testset/
+/resset/
