@@ -1,0 +1,12 @@
+version: latest
+services:
+  db:
+    image: mysql:latest
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB}
+      MYSQL_USER: ${USER}
+      MYSQL_PASSWORD: ${PASS}
+    volumes:
+      - ./data:/var/lib/mysql
