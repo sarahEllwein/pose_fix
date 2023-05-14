@@ -1,19 +1,16 @@
-CREATE TABLE Users (
-	user_id INT NOT NULL UNIQUE,
-	username VARCHAR(60) NOT NULL UNIQUE,
-	pass VARCHAR(60),
-	created_at DATE,
-	updated_at DATE
+CREATE TABLE user_login (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE User_Admin (
-	user_admin_id INT NOT NULL UNIQUE,
-	user_id INT NOT NULL UNIQUE,
-	admin_id INT NOT NULL UNIQUE
-);
-
-CREATE TABLE Admin (
-	admin_id INT NOT NULL UNIQUE,
-	admin_name ENUM ('Admin',
-		'User') NOT NULL
+CREATE TABLE user_videos (
+  id SERIAL PRIMARY KEY,
+  user_id INT REFERENCES user_login(id),
+  title VARCHAR(100) NOT NULL,
+  description TEXT,
+  video_path VARCHAR(255) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
