@@ -5,7 +5,7 @@ import Button from "./components/button";
 import ImageViewer from './components/ImageViewer';
 // import * as ImagePicker from 'expo-image-picker';
 // import { useState } from 'react';
-// testing 2
+// testing 3
 
 const PlaceholderImage = require('./assets/images/background-image.png');
 
