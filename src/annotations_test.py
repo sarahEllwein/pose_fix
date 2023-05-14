@@ -1,6 +1,7 @@
 import os
 import sys
 import shutil
+import json
 
 from annotate_images import *
 from annotate_video import *
@@ -22,7 +23,6 @@ def main():
 
     test_root = os.path.join(os.getcwd(), test_folder)
 
-    # Create resset directory
     res_root = os.path.join(os.getcwd(), res_folder)
 
     # Remove directory if exists
@@ -33,26 +33,41 @@ def main():
     print("Directory '%s' created" % res_root)
 
     testset = os.listdir(test_root)
-    testset.remove('.DS_Store')
+
+    if '.DS_Store' in testset:
+        testset.remove('.DS_Store')
 
     # Command
-    # python3 src/annotations_test.py -i ../test/image_test_set ../test/image_res_set
+    # python3 src/annotations_test.py -i test/image_test_set test/image_res_set
     if flag == '-i':
+        image_json_root = os.path.join(os.getcwd(), '../test/image_res_json')
+
+        if os.path.exists(image_json_root):
+            shutil.rmtree(image_json_root)
+
+        os.mkdir(image_json_root)
+
         for imagename in testset:
             print('Annotating', imagename)
             image_path = os.path.join(test_root, imagename)
-            img = annotate_still_image(image_path)
+            img, res = get_image_info(image_path)
 
-            cv.imwrite(os.path.join(res_root, imagename), img)
+            annotate_img = annotate_still_image(img)
+            cv.imwrite(os.path.join(res_root, imagename), annotate_img)
 
-    # python3 src/annotations_test.py -v ../test/video_test_set ../test/video_res_set
+    # python3 annotations_test.py -v ../test/video_test_set ../test/video_res_set
     elif flag == '-v':
+        video_json_root = os.path.join(os.getcwd(), '../test/video_res_json')
+
+        if os.path.exists(video_json_root):
+            shutil.rmtree(video_json_root)
+
+        os.mkdir(video_json_root)
+
         for videoname in testset:
             print('Annotating', videoname)
             video_path = os.path.join(test_root, videoname)
-            video = annotate_video(video_path)
-
-            cv.imwrite(os.path.join(res_root, videoname), video)
+            _ = annotate_video(video_path, outdir=os.path.join(res_root, videoname))
 
     else:
         print("ERROR: Invalid flag.\n")
