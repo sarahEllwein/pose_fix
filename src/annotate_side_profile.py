@@ -7,4 +7,4 @@ mp_pose = mp.solutions.pose
 
 
 def squat_sequence(landmarks):
-
+    pass
